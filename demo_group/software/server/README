@@ -1,0 +1,9 @@
+This is the code for demo server
+
+To use them:
+    make a echoserver template project like tutorial 5
+    replace the main.c and echo.c with the code in this folder
+
+The code is default for workstation 10, to modify that, changed the lines of main.c
+line 130: change the last byte to 0xXX where XX is the workstation number
+line 157: change to IP4_ADDR(&ipaddr,  1, 1,   XX, 2); where XX is the workstation number
