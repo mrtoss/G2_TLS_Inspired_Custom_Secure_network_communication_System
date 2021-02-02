@@ -5,7 +5,7 @@ Public key:
     openssl rsa -in private-key.pem -pubout -out public-key.pem
 
 To encrypt a file using PKCS#1 v1.5:
-openssl rsautl -pkcs -encrypt -pubin -inkey public-key.pem -out message.enc message.txt
+openssl rsautl -pkcs -encrypt -pubin -inkey public-key.pem -out message.enc -in message.txt
 
 To display a public key's modulus (n) and exponent(e):
 openssl rsa -pubin -in public-key.pem -text -noout
