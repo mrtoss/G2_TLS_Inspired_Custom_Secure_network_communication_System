@@ -1,0 +1,7 @@
+For instruction on how to generate an RSA keypair using openssl tool and how to read the components of the keys, see:
+openssl.txt
+
+For the modules we need to implement and their description, see:
+module_and_description.txt
+
+The verilog source files and test benches for each module goes into the subdirectories with their name

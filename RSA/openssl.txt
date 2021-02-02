@@ -1,0 +1,14 @@
+To generate PKCS#1 RSA keys:
+Private key:
+    openssl genrsa -out private-key.pem 2048
+Public key:
+    openssl rsa -in private-key.pem -pubout -out public-key.pem
+
+To encrypt a file using PKCS#1 v1.5:
+openssl rsautl -pkcs -encrypt -pubin -inkey public-key.pem -out message.enc message.txt
+
+To display a public key's modulus (n) and exponent(e):
+openssl rsa -pubin -in public-key.pem -text -noout
+To display a private key's modulus (n) and private exponent(d):
+openssl rsa -in private-key.pem -text -noout
+look for "privateExponent" field

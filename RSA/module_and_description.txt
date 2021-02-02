@@ -1,0 +1,141 @@
+https://tools.ietf.org/html/rfc3447#section-7
+read section 7
+According to RSAES-PKCS1-v1_5
+
+mod_exp: modular arithmetic for 2048 bit input and outputs: mod_exp
+    input [2047:0] exponent,
+    input [2047:0] base,
+    input [2048:0] n
+    output [2047:0] result
+    outputs result = base^exponent mod n
+
+OS2IP: Converts a octets string to an integer: OS2IP
+    input [2047:0] X,
+    output [2047:0] x
+    encodes a string of octets into a nonnegative integer according to PKCS#1
+    note: xLen is 256 since we're using fixed length RSA keys
+    1. Let X_1 X_2 ... X_xLen be the octets of X from first to last,
+      and let x_(xLen-i) be the integer value of the octet X_i for
+      1 <= i <= xLen.
+
+   2. Let x = x_(xLen-1) 256^(xLen-1) + x_(xLen-2) 256^(xLen-2) + ...
+      + x_1 256 + x_0.
+   3. Output x.
+   Python code:
+    def os2ip(X):
+        xLen = len(X)
+        X = X[::-1]
+        x = 0
+        for i in range(xLen):
+            x += X[i] * 256**i
+        return x
+
+I2OSP: converts an integer to a octet string (reverse of OS2IP):
+    input [2047:0] x,
+    output [2047:0] X,
+    output err
+    Steps:
+    note: xLen is 256 since we're using fixed length RSA keys
+
+   1. If x >= 256^xLen, output err and stop.
+
+   2. Write the integer x in its unique xLen-digit representation in
+      base 256:
+
+         x = x_(xLen-1) 256^(xLen-1) + x_(xLen-2) 256^(xLen-2) + ...
+         + x_1 256 + x_0,
+
+      where 0 <= x_i < 256 (note that one or more leading digits will be
+      zero if x is less than 256^(xLen-1)).
+
+   3. Let the octet X_i have the integer value x_(xLen-i) for 1 <= i <=
+      xLen.  Output the octet string
+
+         X = X_1 X_2 ... X_xLen.
+
+    Python code:
+    def i2osp(x, xLen):
+        if x >= 256**xLen:
+            raise ValueError("integer too large")
+        digits = []
+
+        while x:
+            digits.append(int(x % 256))
+            x = x // 256
+        for i in range(xLen - len(digits)):
+            digits.append(0)
+        return digits[::-1]
+
+
+
+
+wrapper for the encryption and decryption:
+    Encrypt:
+    input [2047:0] e,
+    input [2047:0] n,
+    input [2047:0] M,
+    output [2047:0] c,
+    output err
+    where e is public key, M is the message to encrypt, c is the encrypted cipher text
+    This the encryption block,
+        1. accepts padded plain test M, encode it according to PKCS#1 v1.5:
+            M has to be shorter or equal to (256-11) bytes
+            mLen is the actual length of M.
+            a. Generate an octet string PS of length 256 - mLen - 3 consisting
+                of pseudo-randomly generated nonzero octets.  The length of PS
+                will be at least eight octets.
+
+            b. Concatenate PS, the message M, and other padding to form an
+                encoded message EM of length 256 octets as
+                    EM = 0x00 || 0x02 || PS || 0x00 || M.
+        2. convert the padded message EM into a nonnegative integer according to PKCS#1
+            use OS2IP module described above, get x as result
+            OS2IP(X, x)
+        3. Encrypt x with e and n using mod_exp module described above, get c as result
+            mod_exp(e, x, n, c)
+        4. conver c to a ciphertext C of length 256 octets, use I2OSP module described above, get C as result
+            I2OSP(c, C, err)
+        5. output C
+
+
+    output error if the message length is too long (greater than 256-11 bytes)
+
+    Decrypt:
+    input [2047:0] d,
+    input [2047:0] n,
+    input [2047:0] C,
+    output [2047:0] m,
+    output err
+    where d is private key, C is the cipher test to decrypt, m is the dencrypted plain text
+    This is the decryption block
+    1. if length of C is not 256 bytes output err and stop
+    2. RSA decryption:
+
+      a. Convert the ciphertext C to an integer ciphertext
+         representative c (see Section 4.2):
+
+            OS2IP(C, c)
+
+      b. Apply mod_exp to decrypt c to
+         produce an integer message representative m:
+
+            mod_exp(d,c, n, m)
+
+      c. Convert the message representative m to an encoded message EM
+         of length k octets (see Section 4.1):
+
+            I2OSP (m, EM, err)
+
+     3. EME-PKCS1-v1_5 decoding: Separate the encoded message EM into an
+      octet string PS consisting of nonzero octets and a message M as
+
+         EM = 0x00 || 0x02 || PS || 0x00 || M.
+
+      If the first octet of EM does not have hexadecimal value 0x00, if
+      the second octet of EM does not have hexadecimal value 0x02, if
+      there is no octet with hexadecimal value 0x00 to separate PS from
+      M, or if the length of PS is less than 8 octets, output
+      "decryption error" and stop.  (See the note below.)
+
+    4. Output M
+
