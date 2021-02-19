@@ -1,0 +1,4 @@
+# output file from iverilog
+*.out
+# waveform file from iverilog
+*.vcd
