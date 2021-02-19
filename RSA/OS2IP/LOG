@@ -1,4 +1,0 @@
-2021/02/10
-----------------------------------------------------------------------------------------------------
-  - multiplication by 256*i can be done as bitshift
-    - more efficient than using mult and exponential algorithm
