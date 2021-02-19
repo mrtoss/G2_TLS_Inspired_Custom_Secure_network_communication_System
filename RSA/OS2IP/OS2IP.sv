@@ -55,39 +55,35 @@ module OS2IP
     output o_valid
 );
 
-    logic [7:0] r_octets [DATA_BIT_WIDTH/8-1:0]; //
-    logic [DATA_BIT_WIDTH-1:0] r_out = 0;
-    logic w_octets;
-    logic [7:0] counter = 0;
-    
-    // capture octets in reverse order
-    
-	always @(posedge clk)
-    	begin
-        	if (reset) 
-        		begin
-            		r_out <= 0;
-        		end
-        	else if (valid)
-        		begin
-        		  integer i;
-            		for (i=0; i<256; i=i+1) 
-            		begin
-                			r_octets[i] <= X[(DATA_BIT_WIDTH-1)-8*i -: 8];
-//                			r_out[8*i+:8] = r_octets[i];
-							r_out <= r_out + (r_octets[i] << 8*(256^i));
-            		end
-        		end
-    	end
+reg [8:0] counter = 0;              // count number of octets
+reg [DATA_BIT_WIDTH-1:0] r_sum = 0; // contains intermediate sums of octets
+reg [DATA_BIT_WIDTH-1:0] r_out = 0;
+reg output_valid = 0;
 
-    assign x = r_out;
-//    assign o_valid=1;
-//    multiply_256_exp multiply_256_exp_0(
-//        .in_value(), 
-//        .index(),
-//        .shifted_value()
-//    );
-    
-    
-    
+always @(posedge clk) begin
+    if (reset) begin
+        counter <= 0;
+        r_sum <= 0;
+        r_out <= 0;
+        output_valid <= 0;
+    end
+    else begin
+        if (valid) begin
+            if (counter < 256) begin // counting through all 256 octets
+                r_sum <= r_sum + (X[(DATA_BIT_WIDTH-1)-8*counter -: 8] << (8*counter));
+                counter <= counter + 1;
+            end
+            else begin
+                r_out <= r_sum;
+                output_valid <= 1;
+                counter <= 0;
+                r_sum <= 0;
+            end
+        end
+    end
+end
+
+assign x = r_out;
+assign o_valid = output_valid;
+   
 endmodule
