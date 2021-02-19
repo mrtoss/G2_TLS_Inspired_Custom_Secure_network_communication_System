@@ -2,3 +2,5 @@
 *.out
 # waveform file from iverilog
 *.vcd
+# log file for simulation
+log

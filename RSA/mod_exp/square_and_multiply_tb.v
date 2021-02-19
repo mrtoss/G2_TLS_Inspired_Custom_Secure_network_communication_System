@@ -1,15 +1,15 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ns
 
 module test_tb ();
-    reg [15:0] m, e, n;
+    reg [2047:0] m, e, n;
     reg ready, reset;
-    wire [15:0] out;
+    wire [2047:0] out;
     wire valid;
 
     reg clock = 0;
     always #5 clock = !clock;
 
-    square_and_multiply dut(
+    square_and_multiply #(.BUS_WIDTH(2048), .COUNTER_WIDTH(11)) dut (
         .m(m),
         .e(e),
         .n(n),
@@ -20,13 +20,14 @@ module test_tb ();
         .valid(valid)
     );
 
+
     initial begin
         $dumpfile("test_tb.vcd");
         $dumpvars(0,test_tb);
         #0
-        m = 16'd12;
-        e = 16'd56;
-        n = 16'd99;
+        m = 2048'd2134314354651231;
+        e = 2048'd1423145646468123513547564;
+        n = 2048'd1514564564564135135;
         ready = 0;
         reset = 1;
         #20
@@ -35,18 +36,17 @@ module test_tb ();
         #20
         ready = 0;
         reset = 0;
-        #400
-        ready = 1;
-        reset = 0;
-        #20
-        ready = 0;
-        #800
+        #50000
         $finish;
     end
 
-    initial
+
+    initial begin
         $monitor("At time %t, valid = %h (%b)",
                 $time, valid, valid);
+        $monitor("At time %t, out = %h (%d)",
+                $time, out, out);
+    end
 endmodule
 
 
