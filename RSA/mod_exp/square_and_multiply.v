@@ -1,4 +1,4 @@
-`timescale 1ps/1ps
+`timescale 1ns/1ns
 
 module square_and_multiply
 # (
@@ -28,8 +28,17 @@ parameter COUNTER_WIDTH = 4)
     // they correspond to the "square" and "multiply" steps in the "square and multiply" algorithm
     wire [BUS_WIDTH-1:0] square, multiply;
 
-    assign square = (result*result)%n;
-    assign multiply = (square*m)%n;
+    mul_mod square_block (.y(result),
+        .z(result),
+        .n(n),
+        .M(square)
+    );
+
+    mul_mod mult_block (.y(square),
+        .z(m),
+        .n(n),
+        .M(multiply)
+    );
 
     // state transition
     always @(*) begin
@@ -101,4 +110,33 @@ parameter COUNTER_WIDTH = 4)
     assign calc_finished = (counter >= {COUNTER_WIDTH{1'b1}})? 1'b1:1'b0;
     assign valid = calc_finished;
 
+endmodule
+
+module mul_mod(
+input [2047:0] y,
+input [2047:0] z,
+input [2047:0] n,
+output [2047:0] M
+);
+
+genvar i;
+wire [4095:0] mul;
+wire [6142:0] real_n [4095:0];
+wire [4095:0] divisor_n [4095:0];
+wire [4095:0] divide [4095:0];
+
+assign mul = y*z;
+assign real_n[0] = {1'b0, n, 4095'b0};
+assign divisor_n[0] = real_n[0][4095:0];
+assign divide[0] = (divisor_n[0] == real_n[0]) && (mul >= divisor_n[0]) ? (mul - divisor_n[0]) : mul;
+
+generate
+for(i=1;i<=4095;i=i+1) begin
+assign real_n[i] = {{(i+1){1'b0}},n,{(4095-i){1'b0}}};
+assign divisor_n[i] = real_n[i][4095:0];
+assign divide[i] = (divisor_n[i] == real_n[i]) && (divide[i-1] >= divisor_n[i]) ? (divide[i-1] - divisor_n[i]) : divide[i-1];
+end
+endgenerate
+
+assign M = divide[4095];
 endmodule
