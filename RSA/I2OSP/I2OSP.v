@@ -43,11 +43,11 @@ module I2OSP
     input ready,
     input [DATA_BIT_WIDTH-1:0] x,
     output [DATA_BIT_WIDTH-1:0] X,
-    output data_ready
+    output valid
 );
 
 //	reg [7:0] octet;
-	reg i = 0;
+	reg [8:0] i = 0;
 	reg [DATA_BIT_WIDTH-1:0] digits;
 	reg [DATA_BIT_WIDTH-1:0] r_out;
 	reg o_ready;
@@ -63,9 +63,10 @@ module I2OSP
 		end
 		else begin
 			if (ready) begin
-				if (i < 'd256) begin
+				if (i < (DATA_BIT_WIDTH >> 3)) begin
 					o_ready <= 0;
-					digits[8*i +: 8] <= X[8*i +: 8]; // take least 8 bits and get modulus from division by 
+					digits[8*i +: 8] <= x[8*i +: 8]; // take least 8 bits and get modulus from division by
+//                    digits[7:0] <= x[8*i +: 8];
 					i <= i+1;
 				end
 				else begin
@@ -76,8 +77,9 @@ module I2OSP
 			end
 		end
 	end 
-	
-	assign data_ready = o_ready;
+
+	assign valid = o_ready;
+
 	assign X = r_out;
     
 endmodule
