@@ -34,10 +34,9 @@
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-//      Algorithm is assumed to be endian-agnostic. Endianess would be handled
-//      by upper module.
-//      Since input and output bus are limited to 2048-bits wide, did not incorporate 
-//      length check into module
+//      input is read in as long as ready is high (read error if ready is low before all 256 bits processed
+//      input value must be asserted before data is asserted
+//      output valid signal is asserted for a single cycle
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -48,35 +47,39 @@ module OS2IP
 //    parameter XLEN = 256;
 (
     input clk,
-    input valid,
+    input ready,
     input reset,
     input [DATA_BIT_WIDTH-1:0] X, // octet string
     output [DATA_BIT_WIDTH-1:0] x, // nonnegative integers
-    output o_valid
+    output valid
 );
 
-reg [8:0] counter = 0;              // count number of octets
+reg [8:0] i = 0;              // count number of octets
 reg [DATA_BIT_WIDTH-1:0] r_sum = 0; // contains intermediate sums of octets
 reg [DATA_BIT_WIDTH-1:0] r_out = 0;
 reg output_valid = 0;
 
 always @(posedge clk) begin
     if (reset) begin
-        counter <= 0;
+        i <= 0;
         r_sum <= 0;
         r_out <= 0;
         output_valid <= 0;
     end
     else begin
-        if (valid) begin
-            if (counter < 256) begin // counting through all 256 octets
-                r_sum <= r_sum + (X[(DATA_BIT_WIDTH-1)-8*counter -: 8] << (8*counter));
-                counter <= counter + 1;
+        output_valid <= 0;
+        if (ready) begin    // if valid, use input X to calculate
+            if (i < (DATA_BIT_WIDTH >> 3)) begin
+//                output_valid <= 0; // output invalid while summing
+                // read bytes from [255:0] and multiply them by 256**[0:255]
+                // aka reverse AND multiply by exponent
+                r_sum <= r_sum + (X[8*i +: 8] << (8*i)); // read input from MSB
+                i <= i + 1;
             end
             else begin
                 r_out <= r_sum;
                 output_valid <= 1;
-                counter <= 0;
+                i <= 0;
                 r_sum <= 0;
             end
         end
@@ -84,8 +87,7 @@ always @(posedge clk) begin
 end
 
 assign x = r_out;
-assign o_valid = output_valid;
+assign valid = output_valid;
    
 endmodule
-
 
