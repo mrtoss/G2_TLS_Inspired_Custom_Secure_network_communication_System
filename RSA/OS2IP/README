@@ -1,0 +1,20 @@
+2021/02/10
+----------------------------------------------------------------------------------------------------
+  - multiplication by 256*i can be done as bitshift
+    - more efficient than using mult and exponential algorithm
+
+2021/02/19
+----------------------------------------------------------------------------------------------------
+  - implemented algorithm using Verilog.
+    Once valid signal is asserted, begin a count-up counter i
+    if i < 256
+      current sum = sum + X[i-th byte from MSB] << 8*i
+    if i >= 256
+      output = sum
+      set output valid
+      reset i to 0
+      reset sum
+  
+  - both SV and V files have same code
+  - multiply_256_exp module and accumulator modules are not used in OS2IP module
+  - OS2IP is not modular

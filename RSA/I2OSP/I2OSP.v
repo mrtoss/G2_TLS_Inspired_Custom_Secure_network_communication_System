@@ -77,8 +77,9 @@ module I2OSP
 			end
 		end
 	end 
-	
+
 	assign valid = o_ready;
+
 	assign X = r_out;
     
 endmodule

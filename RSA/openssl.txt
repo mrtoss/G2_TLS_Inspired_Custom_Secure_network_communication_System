@@ -12,3 +12,6 @@ openssl rsa -pubin -in public-key.pem -text -noout
 To display a private key's modulus (n) and private exponent(d):
 openssl rsa -in private-key.pem -text -noout
 look for "privateExponent" field
+
+To encode raw bytes to base64
+openssl base64 -in <raw bytes> -out <base64 result>

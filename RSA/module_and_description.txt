@@ -5,7 +5,7 @@ According to RSAES-PKCS1-v1_5
 mod_exp: modular arithmetic for 2048 bit input and outputs: mod_exp
     input [2047:0] exponent,
     input [2047:0] base,
-    input [2048:0] n
+    input [2047:0] n,
     output [2047:0] result
     outputs result = base^exponent mod n
 
@@ -84,6 +84,8 @@ wrapper for the encryption and decryption:
             a. Generate an octet string PS of length 256 - mLen - 3 consisting
                 of pseudo-randomly generated nonzero octets.  The length of PS
                 will be at least eight octets.
+                ok: 0x02
+                not ok: 0x00
 
             b. Concatenate PS, the message M, and other padding to form an
                 encoded message EM of length 256 octets as
