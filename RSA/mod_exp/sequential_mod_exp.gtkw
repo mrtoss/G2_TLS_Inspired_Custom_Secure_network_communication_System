@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Wed Feb 24 06:24:48 2021
+[*]
+[dumpfile] "/Users/zixuannie/Documents/ECE532/ECE532Project/RSA/mod_exp/test_tb.vcd"
+[dumpfile_mtime] "Wed Feb 24 05:23:40 2021"
+[dumpfile_size] 77281015
+[savefile] "/Users/zixuannie/Documents/ECE532/ECE532Project/RSA/mod_exp/sequential_mod_exp.gtkw"
+[timestart] 0
+[size] 2175 968
+[pos] -765 41
+*-17.000000 830900 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_tb.
+[sst_width] 193
+[signals_width] 285
+[sst_expanded] 1
+[sst_vpaned_height] 287
+@28
+test_tb.clock
+@22
+test_tb.out[255:0]
+@28
+test_tb.ready
+test_tb.reset
+@22
+test_tb.dut.intermidiate_result[255:0]
+@29
+test_tb.valid
+[pattern_trace] 1
+[pattern_trace] 0

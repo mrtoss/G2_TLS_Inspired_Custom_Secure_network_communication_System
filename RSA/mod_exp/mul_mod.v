@@ -1,0 +1,78 @@
+/*
+This module receives high synchronous reset
+It needs one clock cycle of ready signal to start calculation, 
+when calculation is finished, it raises valid signal
+*/
+
+
+module mul_mod(
+    input [255:0] y,
+    input [255:0] z,
+    input [255:0] n,
+    input ready,
+    input clk,
+    input reset,
+    output [255:0] M,
+    output valid
+    );
+   
+    reg [9:0] i;
+    reg [1:0] status;
+    reg [511:0] mul;
+    reg [511:0] divisor_n;
+    reg [511:0] divide;
+    reg [255:0] result;
+   
+    always @(posedge clk) begin
+        if(reset) begin
+            i <= 0;
+            status <= 0;
+            mul <= 0;
+            divisor_n <= 0;
+            divide <= 0;
+            result <= 0;
+        end
+        else if(status == 1) begin
+            divide <= (mul >= divisor_n) ? (mul - divisor_n) : mul;
+            status <= 2;
+        end
+        else if(status == 2) begin
+            if(i==257) begin
+                status <= 0;
+                i <= 10'd258;
+                //status <= status;
+                mul <= mul;
+                divisor_n <= divisor_n;
+                divide <= divide;
+                result <= divide[255:0];
+            end
+            else begin
+                i <= i+1;
+                status <= status;
+                mul <= mul;
+                divisor_n <= divisor_n >> 1;
+                divide <= (divide >= divisor_n) ? (divide - divisor_n) : divide;
+                result <= result;
+            end
+        end
+        else if(ready) begin
+            i <= 0;
+            status <= 1;
+            mul <= y*z;
+            divisor_n <= {n,{256{1'b0}}};
+            divide <= divide;
+            result <= result;
+        end
+        else begin
+            i <= 0;
+            status <= status;
+            mul <= mul;
+            divisor_n <= divisor_n;
+            divide <= divide;
+            result <= result;
+        end;
+    end
+   
+    assign M = result;
+    assign valid = (i==258);
+endmodule
