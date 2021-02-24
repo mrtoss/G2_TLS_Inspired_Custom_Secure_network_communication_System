@@ -3,58 +3,118 @@
 module square_and_multiply
 # (
 // BUS_WIDTH MUST be a power of 2, otherwise this will not work!
-parameter BUS_WIDTH = 16,
+parameter BUS_WIDTH = 256,
 // the COUNTER_WIDTH parameter controls how wide the counter is, the counter should be able to count
 // to BUS_WIDTH-1.
 // for example, if BUS_WIDTH is 16, we need a 4 bit wide counter so it can count to 15 (4'b1111 = 4'd15)
-parameter COUNTER_WIDTH = 4)
+parameter COUNTER_WIDTH = 8)
 (
     input [BUS_WIDTH-1:0] m, e, n,
     input ready, reset, clk,
-    output reg [BUS_WIDTH-1:0] result,
-    output valid
+    output reg [BUS_WIDTH-1:0] out,
+    output reg valid
 );
     // calculates result = m^e % n
-    parameter[1:0] standby = 0, initiate = 1, calculate = 2;
-    reg [1:0] state, next_state;
+    parameter[3:0] standby = 0, initiate = 1, square_ld = 2, square_prerdy = 3, square_rdy = 4, square_wait = 5;
+    parameter[3:0] square_result = 6, mult_ld = 7, mult_prerdy = 13, mult_rdy = 8, mult_wait = 9, mult_result = 10, add_cnt = 11;
+    parameter[3:0] calc_complete = 12;
+    reg [3:0] state, next_state;
 
+    // SIGNALS CONTROLLED BY FSM
     // signal wires between FSM and datapath
-    reg init, go;
-    wire calc_finished;
+    reg init, go, load_square, load_mul, load_result, incr_counter, load_output;
+    reg mod_mul_ready;
+    wire mod_mul_valid;
 
+    // data storage used in datapath
     // counter used to keep track of which bit we are calculating
-    reg [COUNTER_WIDTH-1:0] counter;
+    reg [COUNTER_WIDTH:0] counter;
+    reg [BUS_WIDTH-1:0] result;
+    // the second operand of modular multiplication
+    reg [BUS_WIDTH-1:0] operand;
+    wire [BUS_WIDTH-1:0] intermidiate_result;
+    // in addition, output "out" and "valid" is also controlled by datapath
 
-    // they correspond to the "square" and "multiply" steps in the "square and multiply" algorithm
-    wire [BUS_WIDTH-1:0] square, multiply;
-
-    mul_mod square_block (.y(result),
-        .z(result),
+    mul_mod modular_mult_block (.y(result),
+        .z(operand),
         .n(n),
-        .M(square)
+        .ready(mod_mul_ready),
+        .clk(clk),
+        .reset(reset),
+        .M(intermidiate_result),
+        .valid(mod_mul_valid)
     );
 
-    mul_mod mult_block (.y(square),
-        .z(m),
-        .n(n),
-        .M(multiply)
-    );
-
+    //////////////////////////////////
     // state transition
+    //////////////////////////////////
     always @(*) begin
         init = 0;
         go = 0;
+        // for square step
+        load_square = 0;
+        // for multiplication step
+        load_mul = 0;
+        // ready signal for mul_mod
+        mod_mul_ready = 0;
+        // signal for registering the result by mul_mod
+        load_result = 0;
+        incr_counter = 0;
+        // update output of this module
+        load_output = 0;
         case (state)
             standby: begin
                 next_state = (ready)? initiate : standby;
             end
             initiate: begin
                 init = 1;
-                next_state = calculate;
+                next_state = square_ld;
             end
-            calculate: begin
-                go = 1;
-                next_state = (calc_finished)? standby : calculate;
+            square_ld: begin
+                load_square = 1;
+                next_state = square_rdy;
+            end
+            square_prerdy: begin
+                // wait for an extra cycle to make sure signals are loaded
+                next_state = square_rdy;
+            end
+            square_rdy: begin
+                mod_mul_ready = 1;
+                next_state = square_wait;
+            end
+            square_wait: begin
+                next_state = (mod_mul_valid) ? square_result : square_wait;
+            end
+            square_result: begin
+                load_result = 1;
+                next_state = (e[BUS_WIDTH-1 - counter] == 1) ? mult_ld : add_cnt;
+            end
+            mult_ld: begin
+                load_mul = 1;
+                next_state = mult_rdy;
+            end
+            mult_prerdy: begin
+                // wait for an extra cycle to make sure signals are loaded
+                next_state = mult_rdy;
+            end
+            mult_rdy: begin
+                mod_mul_ready = 1;
+                next_state = mult_wait;
+            end
+            mult_wait: begin
+                next_state = (mod_mul_valid) ? mult_result : mult_wait;
+            end
+            mult_result: begin
+                load_result = 1;
+                next_state = add_cnt;
+            end
+            add_cnt: begin
+                incr_counter = 1;
+                next_state = (counter < 9'd255) ? square_ld : calc_complete;
+            end
+            calc_complete: begin
+                load_output = 1;
+                next_state = standby;
             end
             default: begin
                 init = 0;
@@ -71,72 +131,91 @@ parameter COUNTER_WIDTH = 4)
             state <= next_state;
     end
 
+    //////////////////////////////////
     // data path
+    //////////////////////////////////
+
+    // counter
     always @(posedge clk) begin
         if (reset) begin
             counter <= 0;
-            result <= 0;
+        end
+        else if (init) begin
+            counter <= 1;
+        end
+        else if (incr_counter) begin
+            counter <= counter + 1;
         end
         else begin
-            if (init) begin
-                // start counting from 1 because the MSB is already considered by assigning initial value for result
-                counter <= 1;
-                if (e[BUS_WIDTH-1] == 1)
-                    result <= m;
-                else
-                    result <= 1;
-            end
-            else if (go) begin
-                if (counter <= {COUNTER_WIDTH{1'b1}}) begin
-                    counter <= counter + 1;
-                    if (e[BUS_WIDTH-1 - counter] == 1)begin
-                        result <= multiply;
-                    end
-                    else begin
-                        result <= square;
-                    end
-                end
-                else begin
-                    counter <= 0;
-                    result <= result;
-                end
-            end
-            else begin
-                counter <= 0;
-            end
+            counter <= counter;
         end
     end
 
-    assign calc_finished = (counter >= {COUNTER_WIDTH{1'b1}})? 1'b1:1'b0;
-    assign valid = calc_finished;
+    // result
+    always @(posedge clk) begin
+        if (reset) begin
+            result <= 0;
+        end
+        else if (init) begin
+            if (e[BUS_WIDTH-1] == 1)
+                result <= m;
+            else
+                result <= 1;
+        end
+        else if (load_result) begin
+            result <= intermidiate_result;
+        end
+        else begin
+            result <= result;
+        end
+    end
 
-endmodule
+    //operand
+    always @(posedge clk) begin
+        if (reset) begin
+            operand <= 0;
+        end
+        else if (load_square) begin
+            operand <= result;
+        end
+        else if (load_mul) begin
+            operand <= m;
+        end
+        else begin
+            operand <= operand;
+        end
+    end
 
-module mul_mod(
-input [2047:0] y,
-input [2047:0] z,
-input [2047:0] n,
-output [2047:0] M
-);
+    // out
+    always @(posedge clk) begin
+        if (reset) begin
+            out <= 0;
+        end
+        else if (init) begin
+            out <= 0;
+        end
+        else if (load_output) begin
+            out <= result;
+        end
+        else begin
+            out <= out;
+        end
+    end
 
-genvar i;
-wire [4095:0] mul;
-wire [6142:0] real_n [4095:0];
-wire [4095:0] divisor_n [4095:0];
-wire [4095:0] divide [4095:0];
+    //valid
+    always @(posedge clk) begin
+        if (reset) begin
+            valid <= 0;
+        end
+        else if (init) begin
+            valid <= 0;
+        end
+        else if (load_output) begin
+            valid <= 1;
+        end
+        else begin
+            valid <= valid;
+        end
+    end
 
-assign mul = y*z;
-assign real_n[0] = {1'b0, n, 4095'b0};
-assign divisor_n[0] = real_n[0][4095:0];
-assign divide[0] = (divisor_n[0] == real_n[0]) && (mul >= divisor_n[0]) ? (mul - divisor_n[0]) : mul;
-
-generate
-for(i=1;i<=4095;i=i+1) begin
-assign real_n[i] = {{(i+1){1'b0}},n,{(4095-i){1'b0}}};
-assign divisor_n[i] = real_n[i][4095:0];
-assign divide[i] = (divisor_n[i] == real_n[i]) && (divide[i-1] >= divisor_n[i]) ? (divide[i-1] - divisor_n[i]) : divide[i-1];
-end
-endgenerate
-
-assign M = divide[4095];
 endmodule
