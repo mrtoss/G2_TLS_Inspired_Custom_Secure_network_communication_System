@@ -42,7 +42,7 @@
 
 module OS2IP
 #(
-	parameter DATA_BIT_WIDTH=2048
+	parameter DATA_BIT_WIDTH=256
 )
 //    parameter XLEN = 256;
 (
