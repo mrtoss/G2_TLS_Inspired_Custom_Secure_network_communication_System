@@ -21,29 +21,33 @@
 
 
 module encrypt(
-    input [2047:0] e,
-    input [2047:0] n,
-    input [2047:0] M,
-    output [2047:0] c,
+    input [255:0] e,
+    input [255:0] n,
+    input [255:0] M,
+    output [255:0] c,
     input ready,
     input reset,
     input clk,
     output valid
     );
     
-    reg [2047:0] ein;
-    reg [2047:0] nin;
-    reg [2047:0] Min;
-
-    wire output_valid;
+    reg [255:0] ein;
+    reg [255:0] nin;
+    reg [255:0] Min;
+    reg inter_ready;
     
-
+    wire [255:0] IPnum;
+    wire [255:0] OSstr;
+    wire os2ip_me_vld;
+    wire me_i2osp_vld;
+    
+    wire output_valid;
     
     always @(posedge clk) begin
         if(reset) begin
-            ein = 2048'b0;
-            nin = 2048'b0;
-            Min = 2048'b0;
+            ein = 255'b0;
+            nin = 255'b0;
+            Min = 255'b0;
         end
         else if (ready) begin
             ein = e;
@@ -53,10 +57,11 @@ module encrypt(
     end
     
     // create OS2IP module
-    
+    OS2IP myOS2IP(.clk(clk),.ready(inter_ready),.reset(reset),.X(Min),.x(IPnum),.valid(os2ip_me_vld));
     // create mod_exp module
     
     // create I2OSP module
+    I2OSP myI2OSP(.clk(clk),.reset(reset),.ready(me_i2osp_vld),.x(OSstr),.X(c),.valid(output_valid));
     
     assign valid = output_valid && ready;
 endmodule

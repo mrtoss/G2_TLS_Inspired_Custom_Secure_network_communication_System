@@ -35,7 +35,7 @@
 
 module I2OSP
 #(
-	parameter DATA_BIT_WIDTH=2048
+	parameter DATA_BIT_WIDTH=256
 )
 (
     input clk,
@@ -62,6 +62,7 @@ module I2OSP
 			r_out <= 0;
 		end
 		else begin
+		    o_ready <= 0;
 			if (ready) begin
 				if (i < (DATA_BIT_WIDTH >> 3)) begin
 					o_ready <= 0;
