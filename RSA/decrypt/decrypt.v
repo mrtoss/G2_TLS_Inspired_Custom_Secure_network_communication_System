@@ -61,7 +61,7 @@ module decrypt(
     // create OS2IP module
     OS2IP myOS2IP(.clk(clk),.ready(inter_ready),.reset(reset),.X(Cin),.x(IPnum),.valid(os2ip_me_vld));
     // create mod_exp module
-    
+    square_and_multiply mySM(.clk(clk),.reset(reset),.ready(os2ip_me_vld),.m(IPnum),.e(din),.n(nin),.out(OSstr),.valid(me_i2osp_vld));
     // create I2OSP module
     I2OSP myI2OSP(.clk(clk),.reset(reset),.ready(me_i2osp_vld),.x(OSstr),.X(m),.valid(output_valid));
     
