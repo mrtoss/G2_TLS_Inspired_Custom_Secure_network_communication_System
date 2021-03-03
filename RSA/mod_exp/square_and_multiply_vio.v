@@ -1,7 +1,15 @@
 module top_mod (input clk);
+    wire slow_clk;
+    clk_wiz_0 clock_generator
+ (
+  // Clock out ports
+  .clk_out1(slow_clk),
+ // Clock in ports
+  .clk_in1(clk)
+ );
     wire [255:0] m,e,n,out;
     vio_0 my_vio(
-            .clk(clk),
+            .clk(slow_clk),
             .probe_in0(out[255:0]),
             .probe_out0(m[255:0]),
             .probe_out1(e[255:0]),
@@ -10,7 +18,7 @@ module top_mod (input clk);
      
      wire ready, reset, valid;
      vio_1 control_sigs (
-        .clk(clk),
+        .clk(slow_clk),
         .probe_in0(valid),
         .probe_out0(reset),
         .probe_out1(ready)
@@ -21,7 +29,7 @@ module top_mod (input clk);
         .e(e),
         .n(n),
         .ready(ready),
-        .clk(clk),
+        .clk(slow_clk),
         .reset(reset),
         .out(out),
         .valid(valid)
