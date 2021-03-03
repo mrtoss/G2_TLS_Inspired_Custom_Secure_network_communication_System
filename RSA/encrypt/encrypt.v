@@ -36,32 +36,26 @@ module encrypt(
     reg [255:0] Min;
     reg inter_ready;
     
-    wire [255:0] IPnum;
-    wire [255:0] OSstr;
-    wire os2ip_me_vld;
-    wire me_i2osp_vld;
-    
     wire output_valid;
     
     always @(posedge clk) begin
+        inter_ready <= 0;
         if(reset) begin
-            ein = 255'b0;
-            nin = 255'b0;
-            Min = 255'b0;
+            ein <= 255'b0;
+            nin <= 255'b0;
+            Min <= 255'b0;
+            inter_ready <= 0;
         end
         else if (ready) begin
-            ein = e;
-            nin = n;
-            Min = M;
+            ein <= e;
+            nin <= n;
+            Min <= M;
+            inter_ready <= 1;
         end
     end
     
-    // create OS2IP module
-    OS2IP myOS2IP(.clk(clk),.ready(inter_ready),.reset(reset),.X(Min),.x(IPnum),.valid(os2ip_me_vld));
     // create mod_exp module
-    square_and_multiply mySM(.clk(clk),.reset(reset),.ready(os2ip_me_vld),.m(IPnum),.e(ein),.n(nin),.out(OSstr),.valid(me_i2osp_vld));
-    // create I2OSP module
-    I2OSP myI2OSP(.clk(clk),.reset(reset),.ready(me_i2osp_vld),.x(OSstr),.X(c),.valid(output_valid));
+    square_and_multiply mySM(.clk(clk),.reset(reset),.ready(inter_ready),.m(Min),.e(ein),.n(nin),.out(c),.valid(output_valid));
     
-    assign valid = output_valid && ready;
+    assign valid = output_valid;
 endmodule
