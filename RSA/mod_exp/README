@@ -1,3 +1,17 @@
+############################
+To create a working vio yourself, follow these steps
+############################
+1. Open vivado, add board files
+2. Initialize a project using the board file
+3. Add square_and_multiply_vio.v as a source
+4. Add constr.xdc as a constraint file
+5. Go to IP Catalog, create 3 IPs
+    > 1 VIO with name "vio_0", that has 3 outputs of 256bits and 1 input of 256bits
+    > 1 VIO with name "vio_1", that has 2 outputs of 1 bit and 1 input of 1 bit
+    > 1 clock wizard with name "clk_wiz_0" that has only one output at 10 MHz, and has no reset or locked ports.
+6. synthesis and implement
+
+
 The code for modular exp is in square_and_multiply.v
 The code for modular multiplication is in mul_mod.v
 The vio for mul_mod is in mul_mod_vio.v
