@@ -19,6 +19,8 @@ module mul_mod(
     reg [9:0] i;
     reg [1:0] status;
     reg [511:0] mul;
+    reg [383:0] mulL;
+    reg [383:0] mulH;
     reg [511:0] divisor_n;
     reg [511:0] divide;
     reg [255:0] result;
@@ -28,15 +30,21 @@ module mul_mod(
             i <= 0;
             status <= 0;
             mul <= 0;
+            mulL <= 0;
+            mulH <= 0;
             divisor_n <= 0;
             divide <= 0;
             result <= 0;
         end
         else if(status == 1) begin
-            divide <= (mul >= divisor_n) ? (mul - divisor_n) : mul;
+            mul <= {mulH[383:0] + mulL[383:256],mulL[127:0]};
             status <= 2;
         end
         else if(status == 2) begin
+            divide <= (mul >= divisor_n) ? (mul - divisor_n) : mul;
+            status <= 3;
+        end
+        else if(status == 3) begin
             if(i==257) begin
                 status <= 0;
                 i <= 10'd258;
@@ -58,7 +66,8 @@ module mul_mod(
         else if(ready) begin
             i <= 0;
             status <= 1;
-            mul <= y*z;
+            mulL <= y*z[127:0];
+            mulH <= y*z[255:128];
             divisor_n <= {n,{256{1'b0}}};
             divide <= divide;
             result <= result;
@@ -67,6 +76,8 @@ module mul_mod(
             i <= 0;
             status <= status;
             mul <= mul;
+            mulL <= mulL;
+            mulH <= mulH;
             divisor_n <= divisor_n;
             divide <= divide;
             result <= result;
