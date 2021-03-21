@@ -50,7 +50,7 @@ module key_expansion
     input reset,
     input i_valid,
     input [KEY_LENGTH-1:0] key,
-    output o_valid,
+    output reg o_valid,
     output [Nb*(Nr+1)*WORD_LENGTH-1:0] key_schedule
 );
     reg [Nb*(Nr+1)*WORD_LENGTH-1:0] temp;
@@ -103,7 +103,21 @@ module key_expansion
     key_expansion_round KE_round_10(.clk(clk), .reset(reset), .i(r10), .i_valid(r9_valid), .key(ke_9), .o_valid(r10_valid), .temp_schedule(ke_10));
     
     assign key_schedule = {ke_10, ke_9, ke_8, ke_7, ke_6, ke_5, ke_4, ke_3, ke_2, ke_1, ke_0};
-    assign o_valid = r10_valid;
+    
+    always @(posedge clk) begin
+       if (reset) begin
+           temp <= 0; 
+           o_valid <= 0;
+       end
+       else begin
+            if (i_valid) begin
+                if (r10_valid) begin
+                    o_valid <= 1;
+                end
+                else o_valid <= 0;
+            end
+       end
+    end
     
 endmodule
 
