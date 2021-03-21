@@ -50,10 +50,10 @@ module key_expansion_round
     always @(*) begin
         temp_0 <= key[0+:32];
         temp_1 <= w_temp_1;
-        w0 = key[32*3+:32];
-        w1 = key[32*2+:32];
-        w2 = key[32*1+:32];
-        w3 = key[32*0+:32];
+        w0 <= key[32*3+:32];
+        w1 <= key[32*2+:32];
+        w2 <= key[32*1+:32];
+        w3 <= key[32*0+:32];
     end
     
     new_temp NEW_TEMP_INST(.i(i), .in_word(key[0+:32]), .out_word(w_temp_1));
@@ -62,14 +62,15 @@ module key_expansion_round
         if (reset) begin
             temp_sch <=0;
             temp_0 <= 0;
-            temp_1 <= w_temp_1;
-            w0 <= 0;
-            w1 <= 0;
-            w2 <= 0;
-            w3 <= 0;
+//            temp_1 <= 0;
+//            w0 <= 0;
+//            w1 <= 0;
+//            w2 <= 0;
+//            w3 <= 0;
             o_valid <= 0;
         end
         else begin
+            o_valid <= 0;
             if (i_valid) begin
                 temp_sch[32*3+:32] = w0 ^ temp_1;
                 temp_sch[32*2+:32] = (w0 ^ w1) ^ temp_1;
