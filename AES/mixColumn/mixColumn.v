@@ -33,7 +33,8 @@ module mixColumns(
     generate
         for(a=0;a<4;a=a+1) begin
             for(b=0;b<4;b=b+1) begin
-                assign sByte[a][b] = s[(((3-a)*4+(4-b))*8-1) -: 8];
+//                assign sByte[a][b] = s[(((3-a)*4+(4-b))*8-1) -: 8];
+                assign sByte[a][b] = s[(((3-b)*4+(4-a))*8-1) -: 8];
             end
         end
     endgenerate
@@ -46,7 +47,8 @@ module mixColumns(
     generate
         for(a=0;a<4;a=a+1) begin
             for(b=0;b<4;b=b+1) begin
-                assign s_[(((3-a)*4+(4-b))*8-1) -: 8] = s_Byte[a][b];
+//                assign s_[(((3-a)*4+(4-b))*8-1) -: 8] = s_Byte[a][b];
+                assign s_[(((3-b)*4+(4-a))*8-1) -: 8] = s_Byte[a][b];
             end
         end
     endgenerate
