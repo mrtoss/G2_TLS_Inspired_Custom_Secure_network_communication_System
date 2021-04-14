@@ -1,0 +1,16 @@
+// Mem file initialization records.
+//
+// SW Build 2489853 on Tue Mar 26 04:20:25 MDT 2019
+// Vivado v2018.3.1 (64-bit)
+// Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+// Created on Saturday January 30, 2021 - 08:37:47 pm, from:
+//
+//     Map file     - C:\Users\niezixu1\newwarmup\warmup\warmup.srcs\sources_1\bd\server\server.bmm
+//     Data file(s) - c:/Users/niezixu1/newwarmup/warmup/warmup.srcs/sources_1/bd/server/ip/server_microblaze_0_0/data/mb_bootloop_le.elf
+//
+// Address space 'server_i_microblaze_0.server_i_microblaze_0_local_memory_lmb_bram_32K_1_ADDR_SPACE', bit lane [31:0].
+//
+// Bus width = 32 bits, number of bus blocks = 1.
+
+@00000000
+    B8000000
