@@ -1,41 +1,49 @@
-# ECE532Project
+# G2_TLS_Inspired_Custom_Secure_network_communication_System
 
-notion link: https://www.notion.so/ECE532-Group-6965dfc74f4749ce84fa8ba5e5e88f9d
+## Project Description
 
-# Overview
+This project enables users to encrypt and decrypt messages sent over a network connection. There are two separate components of this project: RSA encryption/decryption and AES encryption.
 
-Implement a hardware SSL accelerator that achieves SSL handshake and message transmission using HW accelerated Cryptographic operations (Encryption, decryption, signature/certificate verification). The focus is on HW implemented Cryptographic operation.
+## How to Use
 
-Basic idea is to encrypt/decrypt packets from the socket on the MicroBlaze Processor before sending/receiving the packet based on SSL protocol.
+1) Download project off of GitHub
+2) Open project
 
-- run server on MicroBlaze Processor (might need to write own, SSL Library exists?)
+## Repository Structure
 
-# Requirements
+* SRC:
+  * RSA:
+    * I2OSP: contains the I2OSP module Verilog file and its testbench.
+    * OS2IP: contains the OS2IP module Verilog file and its testbench.
+    * decrypt: contains the RSA decryption Verilog file and its testbench.
+    * encrypt: contains the RSA encryption module Verilog file and its testbench.
+    * example_keys: keys we used to test our RSA encryption and decryption result.
+    * mod_exp: contains the modular exponentiation module Verilog file and its testbench.
+    * Module_and_description.txt: the RSA algorithm in python and text description
+    * openssl.txt: the command to run openssl for result verification purposes.
+  * AES:
+    * keyExpansion: contains key expansion module Verilog files and testbenches
+    * mixColumn: contains mix column module Verilog files and testbenches
+    * shiftRow: contains shift row module Verilog files and testbenches
+    * subbyte: contains byte substitution Verilog files and testbenches
+    * AES.v: AES top module
+  * sw:
+    * RSA_server_echo.c: the echo server for RSA algorithm with function of encryption and decription.
+    * RSA_client_main.c: the client that asks for user input and encrypts the input before sending it to the server. The received response from the server is then decrypted and displayed.
+    * AES_server_echo.c: the echo server that receives and encrypts incoming messages, then prints it out.
+  * Rsa_server_client: This folder contains the entire RSA system as a Vivado project, which includes all the software projects for both server and client.
 
-## Functions
+* DOCS: This folder contains the design documents of our design.
 
-Achieve HW implemented RSA operations (encryption and decryption)
+## Authors
 
-Achieve HW implemented AES operations (encryption and decryption)
+Zixuan Nie
 
-Implement SSL communication interface between the PC's in the DESL lab. 
+Jiahui Wang
 
-## Acceptance Criteria
+Danlu Liu
 
-Problem: not sure if we can implement the complete SSL protocol (certificate verification is difficult especially) Need to discuss with TA 
 
-# Testing
+## Acknowledgements
 
-Testing: RSA Operation
-
-- Functionality: array of random plain text fed to RSA encryption module, compare output with our RSA module vs output of trustworthy RSA implementations such as OpenSSL
-- Performance: compare the throughput of our RSA encrypt/decrypt module with software implementations such as OpenSSL on Linux
-
-Testing: AES Operations
-
-- Similar to RSA
-
-Testing: SSL communication interface between the PC's in the DESL lab
-
-- Instantiate the design on 2 or more PCs in the DESL lab and test by sending messages between one another PCs.
-- Record outgoing and incoming packets between PC's and make sure the communication traffics are encrypted.
+We'd like to thank our TA Camilo Vega for his help when we ran into challenges.
