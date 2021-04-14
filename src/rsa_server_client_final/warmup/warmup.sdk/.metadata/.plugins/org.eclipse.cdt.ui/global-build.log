@@ -1,0 +1,575 @@
+22:46:57 **** Incremental Build of configuration Debug for project echo_enc1 ****
+make all 
+make: Nothing to be done for 'all'.
+22:47:01 **** Incremental Build of configuration Debug for project echo_enc1 ****
+make all 
+make: Nothing to be done for 'all'.
+22:48:54 **** Incremental Build of configuration Debug for project echo_enc1 ****
+make all 
+make: Nothing to be done for 'all'.
+22:52:00 **** Auto Build of configuration Debug for project echo_enc1 ****
+make all 
+'Building file: ../src/echo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/echo.o" -I../../echo_enc1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/echo.d" -MT"src/echo.o" -o "src/echo.o" "../src/echo.c"
+'Finished building: ../src/echo.c'
+' '
+'Building target: echo_enc1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../echo_enc1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "echo_enc1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: echo_enc1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size echo_enc1.elf  |tee "echo_enc1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 221960	   1628	3962380	4185968	 3fdf70	echo_enc1.elf
+'Finished building: echo_enc1.elf.size'
+' '
+22:52:57 **** Auto Build of configuration Debug for project echo_enc1 ****
+make all 
+'Building file: ../src/echo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/echo.o" -I../../echo_enc1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/echo.d" -MT"src/echo.o" -o "src/echo.o" "../src/echo.c"
+'Finished building: ../src/echo.c'
+' '
+'Building target: echo_enc1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../echo_enc1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "echo_enc1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: echo_enc1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size echo_enc1.elf  |tee "echo_enc1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222008	   1628	3962380	4186016	 3fdfa0	echo_enc1.elf
+'Finished building: echo_enc1.elf.size'
+' '
+22:53:00 **** Incremental Build of configuration Debug for project echo_enc1 ****
+make all 
+make: Nothing to be done for 'all'.
+22:55:44 **** Incremental Build of configuration Debug for project echo_enc1 ****
+make all 
+make: Nothing to be done for 'all'.
+23:14:46 **** Incremental Build of configuration Debug for project echo_enc1 ****
+make all 
+make: Nothing to be done for 'all'.
+23:15:47 **** Incremental Build of configuration Debug for project echo_enc1 ****
+make all 
+make: Nothing to be done for 'all'.
+00:43:59 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'encryption':
+../src/main.c:520:18: warning: implicit declaration of function 'add_padding' [-Wimplicit-function-declaration]
+  char* new_str = add_padding(s);
+                  ^~~~~~~~~~~
+../src/main.c:520:18: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../src/main.c: At top level:
+../src/main.c:538:7: error: conflicting types for 'add_padding'
+ char* add_padding(char* s){
+       ^~~~~~~~~~~
+../src/main.c:520:18: note: previous implicit declaration of 'add_padding' was here
+  char* new_str = add_padding(s);
+                  ^~~~~~~~~~~
+make: *** [src/subdir.mk:53: src/main.o] Error 1
+00:44:38 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 219560	   1556	3962380	4183496	 3fd5c8	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:47:46 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 219580	   1556	3962384	4183520	 3fd5e0	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:48:36 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 219652	   1556	3962384	4183592	 3fd628	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:48:56 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 219672	   1556	3962380	4183608	 3fd638	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:50:39 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'tcp_client_connected':
+../src/main.c:431:8: warning: unused variable 'abc' [-Wunused-variable]
+  char* abc = get_result_str();
+        ^~~
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222408	   1624	3962376	4186408	 3fe128	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:51:17 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222404	   1624	3962380	4186408	 3fe128	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:51:37 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222404	   1624	3962380	4186408	 3fe128	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:52:00 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222404	   1624	3962380	4186408	 3fe128	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:53:24 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+00:54:50 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222404	   1624	3962380	4186408	 3fe128	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:54:53 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+00:55:42 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222404	   1624	3962380	4186408	 3fe128	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:55:46 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+00:56:28 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222340	   1624	3962380	4186344	 3fe0e8	client1.elf
+'Finished building: client1.elf.size'
+' '
+00:56:43 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+00:59:43 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220916	   1624	3962380	4184920	 3fdb58	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:00:27 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220928	   1624	3962376	4184928	 3fdb60	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:00:36 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:02:34 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220916	   1624	3962380	4184920	 3fdb58	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:02:37 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:06:12 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'tcp_client_recv':
+../src/main.c:483:20: warning: dereferencing 'void *' pointer
+   xil_printf("%c", *(p->payload + i));
+                    ^~~~~~~~~~~~~~~~~
+../src/main.c:483:20: error: invalid use of void expression
+   xil_printf("%c", *(p->payload + i));
+                    ^
+make: *** [src/subdir.mk:53: src/main.o] Error 1
+01:06:39 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220920	   1624	3962376	4184920	 3fdb58	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:06:50 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:07:48 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220964	   1624	3962380	4184968	 3fdb88	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:07:58 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:09:58 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:10:56 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220924	   1624	3962380	4184928	 3fdb60	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:11:14 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:16:36 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220944	   1624	3962376	4184944	 3fdb70	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:16:40 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:19:22 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:20:56 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:22:00 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:24:40 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220940	   1624	3962380	4184944	 3fdb70	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:24:46 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:34:05 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220940	   1624	3962380	4184944	 3fdb70	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:37:17 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+../src/main.c:545:6: error: redefinition of 'decryption'
+ void decryption(char* s){
+      ^~~~~~~~~~
+../src/main.c:537:6: note: previous definition of 'decryption' was here
+ void decryption(char* s){
+      ^~~~~~~~~~
+make: *** [src/subdir.mk:53: src/main.o] Error 1
+01:37:30 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 220908	   1624	3962380	4184912	 3fdb50	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:38:45 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222316	   1624	3962380	4186320	 3fe0d0	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:38:48 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:39:30 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:43:31 **** Auto Build of configuration Debug for project client1 ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -I../../client1_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: client1.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../client1_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "client1.elf"  ./src/echo.o ./src/i2c_access.o ./src/iic_phyreset.o ./src/main.o ./src/platform.o ./src/platform_mb.o ./src/platform_ppc.o ./src/platform_zynq.o ./src/platform_zynqmp.o ./src/sfp.o ./src/si5324.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: client1.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size client1.elf  |tee "client1.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 222316	   1624	3962380	4186320	 3fe0d0	client1.elf
+'Finished building: client1.elf.size'
+' '
+01:44:44 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.
+01:46:44 **** Incremental Build of configuration Debug for project client1 ****
+make all 
+make: Nothing to be done for 'all'.

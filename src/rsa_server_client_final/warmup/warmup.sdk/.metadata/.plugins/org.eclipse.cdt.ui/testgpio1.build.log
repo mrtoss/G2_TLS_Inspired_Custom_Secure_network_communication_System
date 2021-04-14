@@ -1,0 +1,6 @@
+21:50:22 **** Incremental Build of configuration Debug for project testgpio1 ****
+make all 
+make: Nothing to be done for 'all'.
+
+21:50:22 Build Finished (took 162ms)
+
