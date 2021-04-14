@@ -13,8 +13,11 @@ This project enables users to encrypt and decrypt messages sent over a network c
 ## Authors
 
 Zixuan Nie
+
 Jiahui Wang
+
 Danlu Liu
+
 
 ## Acknowledgements
 
