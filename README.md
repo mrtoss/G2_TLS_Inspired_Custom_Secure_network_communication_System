@@ -8,7 +8,8 @@ This project enables users to encrypt and decrypt messages sent over a network c
 
 ## Repository Structure
 
-
+1) Download project off of GitHub
+2) Open project
 
 ## Authors
 
