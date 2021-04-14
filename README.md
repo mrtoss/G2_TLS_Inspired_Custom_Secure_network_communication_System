@@ -7,7 +7,7 @@ This project enables users to encrypt and decrypt messages sent over a network c
 ## How to Use
 
 1) Download zipped project off of GitHub
-2) Unzip the project
+2) Unzip the project if required
 
 For RSA project:
 
