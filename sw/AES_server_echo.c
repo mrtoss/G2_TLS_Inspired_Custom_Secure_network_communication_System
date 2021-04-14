@@ -28,12 +28,26 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "xparameters.h"
 
 #include "lwip/err.h"
 #include "lwip/tcp.h"
 #if defined (__arm__) || defined (__aarch64__)
 #include "xil_printf.h"
 #endif
+
+volatile unsigned int* gpio0_membase = (unsigned int*) XPAR_AXI_GPIO_0_BASEADDR;
+volatile unsigned int* gpio1_membase = (unsigned int*) XPAR_AXI_GPIO_1_BASEADDR;
+volatile unsigned int* gpio2_membase = (unsigned int*) XPAR_AXI_GPIO_2_BASEADDR;
+volatile unsigned int* gpio3_membase = (unsigned int*) XPAR_AXI_GPIO_3_BASEADDR;
+volatile unsigned int* gpio4_membase = (unsigned int*) XPAR_AXI_GPIO_4_BASEADDR;
+volatile unsigned int* gpio5_membase = (unsigned int*) XPAR_AXI_GPIO_5_BASEADDR;
+
+char* process_string(char* payload, int* payload_len);
+void print_enc_result();
+void do_enc(char* s);
+void encryption(char* s);
+char* get_result_str();
 
 int transfer_data() {
 	return 0;
@@ -68,17 +82,32 @@ err_t recv_callback(void *arg, struct tcp_pcb *tpcb,
 		char* payload_copy = malloc(p->len);
 		int payload_len = p->len;
 		strcpy(payload_copy, (char*) p->payload);
-		for (int i =0; i < payload_len; i++){
-			// upper case
-			if (payload_copy[i] >= 'A' && payload_copy[i] <= 'Z' ){
-				payload_copy[i] = payload_copy[i] + 32;
+
+		int seg = payload_len / 16;
+		if(payload_len % 16 != 0) {
+			seg++;
+		}
+		char* result = malloc(seg*16*sizeof(char));
+		for(int i=0;i<seg;i++) {
+			if(i != seg-1) {
+				int len = 16;
+				char *substring = malloc(len*sizeof(char));
+				memcpy(substring, &payload_copy[i*16], 16);
+				char *result_string = process_string(substring, &len);
+				free(substring);
+				memcpy(&result[i*16], result_string, 16);
 			}
-			// lower case
-			else if (payload_copy[i] >= 'a' && payload_copy[i] <= 'z' ){
-				payload_copy[i] = payload_copy[i] - 32;
+			else {
+				int len = payload_len % 17;
+				char *substring = malloc(len*sizeof(char));
+				memcpy(substring, &payload_copy[i*16], len);
+				char *result_string = process_string(substring, &len);
+				free(substring);
+				memcpy(&result[i*16], result_string, 16);
 			}
 		}
-		err = tcp_write(tpcb, payload_copy, payload_len, 1);
+
+		err = tcp_write(tpcb, result, seg*16, 1);
 	} else
 		xil_printf("no space in tcp_sndbuf\n\r");
 
@@ -142,4 +171,104 @@ int start_application()
 	xil_printf("TCP echo server started @ port %d\n\r", port);
 
 	return 0;
+}
+
+char* process_string(char* payload, int* payload_len){
+	xil_printf("The payload is: ");
+	for (int i=0; i<*payload_len; i++){
+		xil_printf("%c", payload[i]);
+	}
+	xil_printf ("\ndoing encryption\n");
+	char* to_be_enc = (char*) malloc(16);
+
+	for (int i=0; i<16; i++){
+		to_be_enc[i] = '\x00';
+	}
+
+	xil_printf("%d\n", (int)to_be_enc);
+
+	for (int i = 0; i<*payload_len; i++){
+		to_be_enc[i] = payload[i];
+	}
+
+	encryption(to_be_enc);
+	free(to_be_enc);
+	return get_result_str();
+}
+
+void encryption(char* s){
+	do_enc(s);
+	print_enc_result();
+}
+
+void do_enc(char* s){
+	// write message
+	unsigned int* write_ptr = (unsigned int*) s;
+	unsigned int val = *write_ptr;
+
+	// AES key
+	gpio0_membase[0] = 0x6a576e5a;
+	gpio0_membase[2] = 0x72347537;
+	gpio1_membase[0] = 0x78214125;
+	gpio1_membase[2] = 0x442a462d;
+
+	// value
+	gpio2_membase[0] = val;
+//	xil_printf("%08X", val);
+	write_ptr = write_ptr+1;
+	val = *write_ptr;
+	gpio2_membase[2] = val;
+//	xil_printf("%08X", val);
+	write_ptr = write_ptr+1;
+	val = *write_ptr;
+	gpio3_membase[0] = val;
+//	xil_printf("%08X", val);
+	write_ptr = write_ptr+1;
+	val = *write_ptr;
+	gpio3_membase[2] = val;
+//	xil_printf("%08X", val);
+//	xil_printf("\n");
+
+	val = 0;
+	while (val < 20000000){
+	    val++;
+	}
+}
+
+char* get_result_str(){
+	char* final_str = (char*)malloc(17);
+	char* final_copy = final_str;
+
+	char* read_ptr = (char*)(gpio4_membase+2);
+	for (int i=3; i>=0; i--){
+		*(final_copy+(3-i)) = *(read_ptr+i);
+	}
+	final_copy = final_copy + 4;
+
+	read_ptr = (char*)(gpio4_membase);
+	for (int i=3; i>=0; i--){
+		*(final_copy+(3-i)) = *(read_ptr+i);
+	}
+	final_copy = final_copy + 4;
+
+	read_ptr = (char*)(gpio5_membase+2);
+	for (int i=3; i>=0; i--){
+		*(final_copy+(3-i)) = *(read_ptr+i);
+	}
+	final_copy = final_copy + 4;
+
+	read_ptr = (char*)(gpio5_membase);
+	for (int i=3; i>=0; i--){
+		*(final_copy+(3-i)) = *(read_ptr+i);
+	}
+	final_copy = final_copy + 4;
+
+	final_str[16] = 0;
+	return final_str;
+}
+
+void print_enc_result(){
+	xil_printf("Encryption result is: ");
+	xil_printf("%08X%08X%08X%08X\n", gpio4_membase[0], gpio4_membase[2],
+			gpio5_membase[0], gpio5_membase[2]);
 }
