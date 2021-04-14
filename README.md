@@ -6,8 +6,19 @@ This project enables users to encrypt and decrypt messages sent over a network c
 
 ## How to Use
 
-1) Download project off of GitHub
-2) Open project
+1) Download zipped project off of GitHub
+2) Unzip the project
+
+For RSA project:
+
+3) Open the Vivado project located at src/rsa_server_client/warmup/warmup.xpr
+4) To run the RSA server, open SDK and run the software project echo_enc1
+5) To run the RSA client, open SDK and run the software project client1
+
+For AES project:
+
+3) Open the Vivado project located at src/AES_server/warmup/warmup.xpr
+4) Open SDK and run the software project echo_enc1
 
 ## Repository Structure
 
@@ -31,7 +42,8 @@ This project enables users to encrypt and decrypt messages sent over a network c
     * RSA_server_echo.c: the echo server for RSA algorithm with function of encryption and decription.
     * RSA_client_main.c: the client that asks for user input and encrypts the input before sending it to the server. The received response from the server is then decrypted and displayed.
     * AES_server_echo.c: the echo server that receives and encrypts incoming messages, then prints it out.
-  * Rsa_server_client: This folder contains the entire RSA system as a Vivado project, which includes all the software projects for both server and client.
+  * Rsa_server_client: This folder contains the entire RSA system as a Vivado project, which includes the software projects for both server and client.
+  * AES_server.zip: This folder contains the AES encryption system as a Vivado project, which includes the software projects for the server.
 
 * DOCS: This folder contains the design documents of our design.
 
