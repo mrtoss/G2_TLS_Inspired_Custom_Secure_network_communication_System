@@ -42,7 +42,7 @@ For AES project:
     * RSA_server_echo.c: the echo server for RSA algorithm with function of encryption and decription.
     * RSA_client_main.c: the client that asks for user input and encrypts the input before sending it to the server. The received response from the server is then decrypted and displayed.
     * AES_server_echo.c: the echo server that receives and encrypts incoming messages, then prints it out.
-  * Rsa_server_client: This folder contains the entire RSA system as a Vivado project, which includes the software projects for both server and client.
+  * rsa_server_client_final: This folder contains the entire RSA system as a Vivado project, which includes the software projects for both server and client.
   * AES_server.zip: This folder contains the AES encryption system as a Vivado project, which includes the software projects for the server.
 
 * DOCS: This folder contains the design documents of our design.
